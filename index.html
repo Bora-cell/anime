@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spor Animeleri Dünyası</title>
+  <style>
+    /* Reset ve temel stil */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      color: #222;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: linear-gradient(90deg, #ff512f, #dd2476);
+      padding: 25px 20px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(221,36,118,0.5);
+    }
+    header h1 {
+      font-size: 2.8rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+    main {
+      flex: 1;
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+    section {
+      margin-bottom: 50px;
+    }
+    h2 {
+      font-size: 2rem;
+      color: #dd2476;
+      margin-bottom: 20px;
+      border-bottom: 3px solid #ff512f;
+      padding-bottom: 8px;
+      font-weight: 700;
+    }
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    /* Spor anime kartları */
+    .anime-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+      gap: 25px;
+    }
+    .anime-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(221,36,118,0.15);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .anime-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(221,36,118,0.3);
+    }
+    .anime-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .anime-content {
+      padding: 15px 20px;
+    }
+    .anime-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #dd2476;
+      margin-bottom: 8px;
+    }
+    .anime-info {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .anime-desc {
+      font-size: 0.95rem;
+      color: #555;
+      height: 70px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Footer */
+    footer {
+      background: #222;
+      color: #eee;
+      text-align: center;
+      padding: 15px 20px;
+      font-size: 0.9rem;
+      box-shadow: inset 0 4px 10px rgba(0,0,0,0.7);
+    }
+
+    /* Responsive */
+    @media(max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .anime-card img {
+        height: 140px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Spor Animeleri Dünyası</h1>
+</header>
+
+<main>
+  <section>
+    <h2>Spor Animeleri Nedir?</h2>
+    <p>
+      Spor animeleri, spor temalı hikâyeleri, rekabet ve azmi konu alan Japon animasyonlarıdır. Genellikle gerçekçi spor dallarını veya hayali sporu anlatır. İzleyicilere hem heyecan, hem motivasyon sunar.
+    </p>
+  </section>
+
+  <section>
+    <h2>Popüler Spor Animeleri</h2>
+    <div class="anime-grid">
+      <article class="anime-card">
+        <img src="https://cdn.myanimelist.net/images/anime/12/76049.jpg" alt="Haikyuu!!" />
+        <div class="anime-content">
+          <h3 class="anime-title">Haikyuu!!</h3>
+          <p class="anime-info">Voleybol / 2014</p>
+          <p class="anime-desc">Shoyo Hinata'nın voleybol aşkı ve lise takımıyla başarı yolculuğu.</p>
+        </div>
+      </article>
+
+      <article class="anime-card">
+        <img src="https://cdn.myanimelist.net/images/anime/7/76050.jpg" alt="Kuroko no Basket" />
+        <div class="anime-content">
+          <h3 class="anime-title">Kuroko no Basket</h3>
+          <p class="anime-info">Basketbol / 2012</p>
+          <p class="anime-desc">Gizli oyuncu Kuroko ile lise basketbol takımı ve güçlü rakipler.</p>
+        </div>
+      </article>
+
+      <article class="anime-card">
+        <img src="https://cdn.myanimelist.net/images/anime/11/76048.jpg" alt="Yuri on Ice" />
+        <div class="anime-content">
+          <h3 class="anime-title">Yuri on Ice</h3>
+          <p class="anime-info">Buz Pateni / 2016</p>
+          <p class="anime-desc">Profesyonel buz pateni dünyasında Yuri'nin aşk ve rekabet dolu yolculuğu.</p>
+        </div>
+      </article>
+
+      <article class="anime-card">
+        <img src="https://cdn.myanimelist.net/images/anime/13/76051.jpg" alt="Run with the Wind" />
+        <div class="anime-content">
+          <h3 class="anime-title">Run with the Wind</h3>
+          <p class="anime-info">Koşu / 2018</p>
+          <p class="anime-desc">Koşu tutkunu gençlerin maraton hedeflerine ulaşma hikayesi.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Spor Animelerinin Popülerliği</h2>
+    <p>
+      Spor animeleri, karakterlerin azmi, takım ruhu ve rekabet temaları sebebiyle geniş kitleler tarafından sevilir. Sporun heyecanı ve insan hikâyeleriyle birleşerek motivasyon kaynağı olur. Bu tür animeler farklı yaş gruplarına hitap eder.
+    </p>
+  </section>
+</main>
+
+<footer>
+  © 2025 Marlo | Spor Animeleri Dünyası
+</footer>
+
+</body>
+</html>
