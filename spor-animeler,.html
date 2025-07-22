@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spor Animeleri</title>
+  <style>
+    /* Genel Stil */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    header h1 {
+      color: #0077cc;
+      font-size: 2.8rem;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+    /* Arama ve Filtre Kapsayıcı */
+    .controls {
+      max-width: 900px;
+      margin: 0 auto 30px auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+    /* Arama Kutusu */
+    #searchInput {
+      flex: 1 1 300px;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 2px solid #0077cc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    #searchInput:focus {
+      border-color: #004a99;
+    }
+    /* Kategori Butonları */
+    .filter-btn {
+      background: #0077cc;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      user-select: none;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: #004a99;
+    }
+    /* Anime Kartları Kapsayıcı */
+    .anime-list {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 25px;
+    }
+    /* Anime Kartları */
+    .anime-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .anime-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    .anime-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      display: block;
+    }
+    .anime-card-content {
+      padding: 15px 20px;
+    }
+    .anime-card-content h3 {
+      margin: 0 0 10px;
+      font-size: 1.3rem;
+      color: #0077cc;
+    }
+    .anime-card-content p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #555;
+      height: 60px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Spor Animeleri</h1>
+  </header>
+
+  <section class="controls">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Anime ara..."
+      aria-label="Anime ara"
+    />
+    <button class="filter-btn active" data-filter="all">Tümü</button>
+    <button class="filter-btn" data-filter="voleybol">Voleybol</button>
+    <button class="filter-btn" data-filter="basketbol">Basketbol</button>
+    <button class="filter-btn" data-filter="futbol">Futbol</button>
+    <button class="filter-btn" data-filter="tenis">Tenis</button>
+  </section>
+
+  <section class="anime-list" id="animeList">
+    <!-- Animeler JS ile buraya eklenecek -->
+  </section>
+
+  <script>
+    const animeData = [
+      {
+        title: "Haikyuu!!",
+        category: "voleybol",
+        description:
+          "Haikyuu!!, voleybol takımı üyelerinin dostluk, rekabet ve takım ruhu üzerinden yaşadıkları maceraları anlatır.",
+        img: "https://upload.wikimedia.org/wikipedia/en/9/9a/Haikyuu!!_poster.jpg",
+      },
+      {
+        title: "Kuroko no Basket",
+        category: "basketbol",
+        description:
+          "Kuroko no Basket, lise basketbol takımının zorlu maçları ve Kuroko'nun eşsiz oyun tarzını konu alır.",
+        img: "https://upload.wikimedia.org/wikipedia/en/2/27/Kuroko_no_Basket_volume_1.jpg",
+      },
+      {
+        title: "Days",
+        category: "futbol",
+        description:
+          "Days, futbol tutkusuyla dolu gençlerin okul takımıyla birlikte büyük başarılara ulaşma hikayesidir.",
+        img: "https://upload.wikimedia.org/wikipedia/en/6/6b/Days_Anime_Volume_1_Cover.jpg",
+      },
+      {
+        title: "Baby Steps",
+        category: "tenis",
+        description:
+          "Baby Steps, tenis sporuna yeni başlayan bir gencin azim ve disiplinle nasıl geliştiğini anlatır.",
+        img: "https://upload.wikimedia.org/wikipedia/en/7/7d/Baby_Steps_vol1.jpg",
+      },
+      {
+        title: "Slam Dunk",
+        category: "basketbol",
+        description:
+          "Slam Dunk, lise basketbol takımının zorlu maçlarını ve üyelerinin kişisel gelişimini işler.",
+        img: "https://upload.wikimedia.org/wikipedia/en/9/92/Slam_Dunk_Volume_1.jpg",
+      },
+    ];
+
+    const animeListEl = document.getElementById("animeList");
+    const searchInput = document.getElementById("searchInput");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+
+    // Anime kartlarını oluşturup DOM'a ekleyen fonksiyon
+    function displayAnimes(animes) {
+      animeListEl.innerHTML = "";
+      if (animes.length === 0) {
+        animeListEl.innerHTML = "<p style='text-align:center; width:100%;'>Aramanıza uygun anime bulunamadı.</p>";
+        return;
+      }
+      animes.forEach((anime) => {
+        const card = document.createElement("div");
+        card.className = "anime-card";
+        card.innerHTML = `
+          <img src="${anime.img}" alt="${anime.title} posteri" />
+          <div class="anime-card-content">
+            <h3>${anime.title}</h3>
+            <p>${anime.description}</p>
+          </div>
+        `;
+        animeListEl.appendChild(card);
+      });
+    }
+
+    // Arama ve filtreleme işlemi
+    function filterAnimes() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const activeFilter = document.querySelector(".filter-btn.active").getAttribute("data-filter");
+
+      const filtered = animeData.filter((anime) => {
+        const matchesFilter = activeFilter === "all" || anime.category === activeFilter;
+        const matchesSearch = anime.title.toLowerCase().includes(searchTerm);
+        return matchesFilter && matchesSearch;
+      });
+
+      displayAnimes(filtered);
+    }
+
+    // Butonlara tıklama ve aktif buton yönetimi
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        filterAnimes();
+      });
+    });
+
+    // Arama inputuna yazıldıkça filtrele
+    searchInput.addEventListener("input", filterAnimes);
+
+    // Sayfa ilk yüklendiğinde tüm animeleri göster
+    displayAnimes(animeData);
+  </script>
+</body>
+</html>
